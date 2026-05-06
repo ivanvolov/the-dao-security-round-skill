@@ -1,6 +1,6 @@
 {
   "name": "the-dao-security-skill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Claude Code skill: research the Giveth Ethereum Security QF round (134 projects). Ask Claude things like 'which audit-tooling projects are in the round?'",
   "bin": {
     "the-dao-security-skill": "bin/install.js"
