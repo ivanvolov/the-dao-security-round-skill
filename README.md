@@ -4,9 +4,17 @@ A Claude Code skill that lets you research the **Giveth Ethereum Security** quad
 
 ## Install
 
-Pick one. Both end up with the skill loaded in Claude Code.
+Pick one. All three end up with the skill loaded in Claude Code.
 
-### Option A — Plugin marketplace (recommended)
+### Option A — `npx` (recommended)
+
+```bash
+npx the-dao-security-skill
+```
+
+Clones the skill into `~/.claude/skills/the-dao-security-round-skill`. Restart Claude Code. Re-run the command later to update.
+
+### Option B — Plugin marketplace
 
 Inside Claude Code:
 
@@ -17,7 +25,7 @@ Inside Claude Code:
 
 Update later with `/plugin update`.
 
-### Option B — Manual git clone
+### Option C — Manual git clone
 
 ```bash
 git clone https://github.com/ivanvolov/the-dao-security-round-skill ~/.claude/skills/the-dao-security-round-skill
