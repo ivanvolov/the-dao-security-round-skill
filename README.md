@@ -27,12 +27,27 @@ Restart Claude Code. Update later with `git pull` in that directory.
 
 ## What you can ask
 
+Three questions worth trying first.
+
+### "How many projects are building smth around formal verification?"
+
+![formal verification example](assets/exp1.png)
+
+### "What SEAL org projects are in the round?"
+
+![SEAL org example](assets/exp2.png)
+
+### "Can I have the top 5 underdogs in your opinion?"
+
+![underdogs example](assets/exp3.png)
+
+A few more shapes that work:
+
 ```
-What blob-data security projects are in the round?
-List vouched infrastructure projects.
-Show me research-category projects with their builders.
 What does Blobscan do, and who runs it?
-Which projects work on auditing or fuzzing?
+Which projects work on fuzzing?
+How many projects mention zk circuits in their pitch?
+Compare the block explorers in the round.
 ```
 
 Claude shells out to a small Python CLI (`scripts/search.py`) that filters the indexed records and returns compact JSON, then answers from what came back. No invented projects, no fabricated builders.
