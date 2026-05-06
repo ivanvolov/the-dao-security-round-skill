@@ -1,0 +1,12 @@
+{
+  "name": "the-dao-security-round-skill",
+  "owner": {
+    "name": "Ivan Volovik"
+  },
+  "plugins": [
+    {
+      "name": "the-dao-security-round",
+      "source": "."
+    }
+  ]
+}
