@@ -6,7 +6,10 @@
   "plugins": [
     {
       "name": "the-dao-security-round",
-      "source": "."
+      "source": {
+        "source": "github",
+        "repo": "ivanvolov/the-dao-security-round-skill"
+      }
     }
   ]
 }
