@@ -1,6 +1,31 @@
 # the-dao-security-round-skill
 
-A Claude Code skill that answers questions about projects in the **Giveth Ethereum Security** quadratic-funding round. Local-only — no backend, no API keys at query time.
+A Claude Code skill that lets you research the **Giveth Ethereum Security** quadratic-funding round in plain English. 134 projects indexed locally; ask Claude things like *"which audit-tooling projects are in the round?"* or *"who's working on blob-data security?"* and it answers from real data.
+
+## Install
+
+Inside Claude Code, run:
+
+```
+/plugin marketplace add ivanvolov/the-dao-security-round-skill
+/plugin install the-dao-security-round
+```
+
+That's it. The skill is now in your available-skills list. Ask any round-scoped question and Claude will use it.
+
+To update later: `/plugin update`.
+
+## What you can ask
+
+```
+What blob-data security projects are in the round?
+List vouched infrastructure projects.
+Show me research-category projects with their builders.
+What does Blobscan do, and who runs it?
+Which projects work on auditing or fuzzing?
+```
+
+Claude shells out to a small Python CLI (`scripts/search.py`) that filters the indexed records and returns compact JSON, then answers from what came back. No invented projects, no fabricated builders.
 
 ## The round
 
@@ -8,36 +33,22 @@ A Claude Code skill that answers questions about projects in the **Giveth Ethere
 
 Round page: <https://qf.giveth.io/qf/ethereum-security>
 
-## What this skill does
-
-When you ask Claude Code a question scoped to this round — *"what blob-data projects are in the round?"*, *"who's working on audit tooling?"*, *"which infrastructure projects are vouched?"* — it shells out to a small Python CLI that filters the indexed projects and returns compact JSON, then answers from real data.
-
-Three commands the skill calls:
-
-```bash
-python3 scripts/search.py projects -q "<keywords>" [--category X] [--vouched] [--limit N]
-python3 scripts/search.py categories
-python3 scripts/search.py show <slug>
-```
-
-`-q` AND-matches keywords across `title`, `descriptionText`, and `descriptionSummary`. `--category` is a case-insensitive substring against each project's category and parent category.
-
 ## Layout
 
 ```
 the-dao-security-round-skill/
-├── SKILL.md             skill manifest (instructions Claude reads)
-├── README.md            this file
-├── data/
-│   └── projects.json    134 consolidated project records
+├── .claude-plugin/plugin.json   plugin manifest
+├── SKILL.md                     instructions Claude reads
+├── README.md                    this file
+├── data/projects.json           134 consolidated project records
 └── scripts/
-    ├── search.py        query CLI; the skill's only entry point
-    └── build_index.py   rebuilds projects.json from RoundDetails/projects/*.json
+    ├── search.py                query CLI (3 commands: projects, categories, show)
+    └── build_index.py           rebuilds projects.json from RoundDetails/projects/*.json
 ```
 
-## Refreshing the data
+## Refreshing the round data
 
-The upstream parser lives at `theDao/RoundDetails/scripts/fetch_round_projects.py` (queries `core.v6.giveth.io/graphql`). Two-step refresh:
+The upstream parser lives at `theDao/RoundDetails/scripts/fetch_round_projects.py` (queries `core.v6.giveth.io/graphql`). To refresh:
 
 ```bash
 # 1. pull the latest per-project JSONs from Giveth
@@ -45,19 +56,22 @@ python3 ../RoundDetails/scripts/fetch_round_projects.py
 
 # 2. rebuild the consolidated index this skill reads
 python3 scripts/build_index.py
+
+# 3. ship it
+git commit -am "refresh: round data" && git push
 ```
 
-`build_index.py` strips `descriptionHtml` (the plain-text and summary fields are what the keyword search uses), sorts by `roundPosition`, and writes `data/projects.json`.
+Users get the new data automatically on their next `/plugin update`.
 
-## Installation
+## Local development
 
-The skill folder is registered to Claude Code by symlinking it into `~/.claude/skills/`:
+If you want to hack on the skill against your local checkout (instead of installing it as a plugin), symlink it:
 
 ```bash
 ln -s "$(pwd)" ~/.claude/skills/the-dao-security-round-skill
 ```
 
-Restart Claude Code; the skill appears in the available-skills list.
+Restart Claude Code; the skill loads from your working copy.
 
 ## Pattern
 

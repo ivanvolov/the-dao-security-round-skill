@@ -1,0 +1,11 @@
+{
+  "name": "the-dao-security-round",
+  "description": "Research the Giveth Ethereum Security QF round — search 134 indexed projects by keyword, category, and vouched status.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ivan Volovik"
+  },
+  "homepage": "https://github.com/ivanvolov/the-dao-security-round-skill",
+  "repository": "https://github.com/ivanvolov/the-dao-security-round-skill",
+  "license": "MIT"
+}
