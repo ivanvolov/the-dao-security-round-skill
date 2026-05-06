@@ -17,8 +17,6 @@ Inside Claude Code:
 
 Update later with `/plugin update`.
 
-> **Note:** use the full `https://...` URL, not the `owner/repo` shorthand. The shorthand makes Claude Code clone over SSH (`git@github.com:`), which fails for anyone without a GitHub SSH key configured.
-
 ### Option B — Manual git clone
 
 ```bash
