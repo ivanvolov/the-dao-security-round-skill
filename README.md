@@ -11,11 +11,13 @@ Pick one. Both end up with the skill loaded in Claude Code.
 Inside Claude Code:
 
 ```
-/plugin marketplace add ivanvolov/the-dao-security-round-skill
+/plugin marketplace add https://github.com/ivanvolov/the-dao-security-round-skill.git
 /plugin install the-dao-security-round@the-dao-security-round-skill
 ```
 
 Update later with `/plugin update`.
+
+> **Note:** use the full `https://...` URL, not the `owner/repo` shorthand. The shorthand makes Claude Code clone over SSH (`git@github.com:`), which fails for anyone without a GitHub SSH key configured.
 
 ### Option B — Manual git clone
 
