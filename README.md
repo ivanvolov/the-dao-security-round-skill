@@ -70,34 +70,3 @@ the-dao-security-round-skill/
     ├── search.py                query CLI (3 commands: projects, categories, show)
     └── build_index.py           rebuilds projects.json from RoundDetails/projects/*.json
 ```
-
-## Refreshing the round data
-
-The upstream parser lives at `theDao/RoundDetails/scripts/fetch_round_projects.py` (queries `core.v6.giveth.io/graphql`). To refresh:
-
-```bash
-# 1. pull the latest per-project JSONs from Giveth
-python3 ../RoundDetails/scripts/fetch_round_projects.py
-
-# 2. rebuild the consolidated index this skill reads
-python3 scripts/build_index.py
-
-# 3. ship it
-git commit -am "refresh: round data" && git push
-```
-
-Users get the new data automatically on their next `/plugin update`.
-
-## Local development
-
-If you want to hack on the skill against your local checkout (instead of installing it as a plugin), symlink it:
-
-```bash
-ln -s "$(pwd)" ~/.claude/skills/the-dao-security-round-skill
-```
-
-Restart Claude Code; the skill loads from your working copy.
-
-## Pattern
-
-Mirrors the `ethglobal-copilot` skill pattern: pure local files + a small Python CLI invoked over Bash. No HTTP at query time, no full-text index — 134 records and ~1 MB makes in-memory substring search instant.
